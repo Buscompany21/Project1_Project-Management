@@ -41,6 +41,9 @@ public class App {
                 groupNum++;
             }
 
+            System.out.println("\n           List of Groups          ");
+            System.out.println("-------------------------------------");
+
             
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
