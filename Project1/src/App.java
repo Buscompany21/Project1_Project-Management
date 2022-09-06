@@ -33,8 +33,17 @@ public class App {
             int endGroup = numStudentsPerTeam;
             int groupNum = 1;
 
+            //Creates List of Groups
+            ArrayList<ArrayList<String>> listOfGroups = new ArrayList<ArrayList<String>>();
+
+
             for (int i = 0; i < numStudents; i+=numStudentsPerTeam) {
-                List<String> group = listStudents.subList(startGroup, endGroup);
+                //Creates a List of students in a group
+                ArrayList<String> group = new ArrayList<String>(listStudents.subList(startGroup, endGroup));
+
+                //Adds the list of students to the list of groups
+                listOfGroups.add(group);
+
                 System.out.println("Group " + groupNum + ": " + group);
                 startGroup = endGroup;
                 endGroup += numStudentsPerTeam;
@@ -43,6 +52,7 @@ public class App {
 
             System.out.println("\n           List of Groups          ");
             System.out.println("-------------------------------------");
+            System.out.println(listOfGroups);
 
             
         } catch (FileNotFoundException e) {
