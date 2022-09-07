@@ -55,6 +55,7 @@ public class App {
                 if (i >= (numStudents - overflow)){
                     for (int n = 0; n < overflow; n++) {
                         listOfGroups.get(n).add(listStudents.get(i));
+                        i++;
                     }
                     break;
                 }                
