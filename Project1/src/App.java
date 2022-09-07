@@ -74,8 +74,6 @@ public class App {
             System.out.println("\n           List of Groups          ");
             System.out.println("-------------------------------------");
             listOfGroups.forEach(group -> System.out.println("Group #" + (listOfGroups.indexOf(group) + 1) + " " + group));
-
-
             
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
