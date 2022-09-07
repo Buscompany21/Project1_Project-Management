@@ -6,12 +6,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
 
-
 public class App {
     public static void main(String[] args) {
         try {
+
+            //Sets console to system's console
             Console console = System.console();
-            String numTeams = console.readLine("How many teams would you like to form? ");
+
+            //Get input for # of teams formed
+            String numTeams = console.readLine("\n\nHow many teams would you like to form? ");
+
+            //Read txt file with list of students
             File myObj = new File("C:/Users/busco/OneDrive/Documents/MISM 1st Year/IS Project Management/Project1_Project-Management/Project1/src/students.txt");
             Scanner myReader = new Scanner(myObj);
             List<String> listStudents = new ArrayList<>();
@@ -20,39 +25,47 @@ public class App {
             }
             myReader.close();
             
+            //Declares number of students and randomly shuffles list
             int numStudents = listStudents.size();
             Collections.shuffle(listStudents);
 
-            // System.out.println(listStudents);
-            // System.out.println(numTeams);
-            // System.out.println(numStudents);
-            
+            //Figures out how many students should be on each team
             int numStudentsPerTeam = numStudents / Integer.parseInt(numTeams);
+            int overflow = numStudents - (numStudentsPerTeam * Integer.parseInt(numTeams));
+            System.out.println("\nNumber of students on each team: " + numStudentsPerTeam + "\nNumber of teams with an extra student:  "+ overflow);
 
+            //Declares variables needed to find subgroups
             int startGroup = 0;
             int endGroup = numStudentsPerTeam;
-            int groupNum = 1;
 
             //Creates List of Groups
             ArrayList<ArrayList<String>> listOfGroups = new ArrayList<ArrayList<String>>();
 
-
+            //Creates groups and adds them to list of groups
             for (int i = 0; i < numStudents; i+=numStudentsPerTeam) {
+                //Logic to add the extra members to a groups
+                if (i >= (numStudents - overflow)){
+                    for (int n = 0; n < overflow; n++) {
+                        listOfGroups.get(n).add(listStudents.get(i));
+                    }
+                    break;
+                }                
+
                 //Creates a List of students in a group
                 ArrayList<String> group = new ArrayList<String>(listStudents.subList(startGroup, endGroup));
 
                 //Adds the list of students to the list of groups
                 listOfGroups.add(group);
 
-                System.out.println("Group " + groupNum + ": " + group);
                 startGroup = endGroup;
                 endGroup += numStudentsPerTeam;
-                groupNum++;
             }
 
+            //Outputs the list of groups
             System.out.println("\n           List of Groups          ");
             System.out.println("-------------------------------------");
-            System.out.println(listOfGroups);
+            listOfGroups.forEach(group -> System.out.println("Group #" + (listOfGroups.indexOf(group) + 1) + " " + group));
+
 
             
         } catch (FileNotFoundException e) {
