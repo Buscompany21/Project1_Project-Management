@@ -13,9 +13,6 @@ public class App {
             //Sets console to system's console
             Console console = System.console();
 
-            //Get input for # of teams formed
-            String numTeams = console.readLine("\n\nHow many teams would you like to form? ");
-
             //Read txt file with list of students
             File myObj = new File("C:/Users/busco/OneDrive/Documents/MISM 1st Year/IS Project Management/Project1_Project-Management/Project1/src/students.txt");
             Scanner myReader = new Scanner(myObj);
@@ -24,14 +21,25 @@ public class App {
                 listStudents.add(myReader.nextLine());
             }
             myReader.close();
-            
-            //Declares number of students and randomly shuffles list
-            int numStudents = listStudents.size();
+
+            //Get input for # of teams formed
+            int numTeams;
+            int numStudents;
+            do {
+                String temp = console.readLine("\n\nHow many teams would you like to form? ");
+                numTeams = Integer.parseInt(temp);
+
+                //Declares number of students 
+                numStudents = listStudents.size();
+            }
+            while (numTeams > numStudents);
+
+            //Randomly shuffles list
             Collections.shuffle(listStudents);
 
             //Figures out how many students should be on each team
-            int numStudentsPerTeam = numStudents / Integer.parseInt(numTeams);
-            int overflow = numStudents - (numStudentsPerTeam * Integer.parseInt(numTeams));
+            int numStudentsPerTeam = numStudents / numTeams;
+            int overflow = numStudents - (numStudentsPerTeam * numTeams);
             System.out.println("\nNumber of students on each team: " + numStudentsPerTeam + "\nNumber of teams with an extra student:  "+ overflow);
 
             //Declares variables needed to find subgroups
